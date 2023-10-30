@@ -1,5 +1,6 @@
 //? crear state
 
+import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:formz/formz.dart';
 import 'package:teslo_shop/features/shared/shared.dart';
@@ -92,11 +93,11 @@ class RegisterFormNotifier extends StateNotifier<RegisterFormState> {
     final isNombreValid = state.nombre.isNotEmpty;
     if (!passwordsMatch) {
       state = state.copyWith(errorText: 'Las contraseñas no coinciden');
-      return;
+      return Text(state.errorText);
     }
     if (!isNombreValid) {
       state = state.copyWith(errorText: 'El nombre es invalido');
-      return;
+      return Text(state.errorText);
     }
     state = state.copyWith(
         isFormPosted: true,
