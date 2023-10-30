@@ -104,7 +104,7 @@ class _RegisterForm extends StatelessWidget {
 
           SizedBox(
             width: double.infinity,
-            height: 60,
+            height: 45,
             child: CustomFilledButton(
               text: 'Crear',
               buttonColor: Colors.black,
