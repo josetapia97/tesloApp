@@ -12,15 +12,41 @@ final authProvider = StateNotifierProvider<AuthNotifier, AuthState>((ref) {
 //?notifier y metodos internos
 class AuthNotifier extends StateNotifier<AuthState> {
   final AuthRepository authRepository;
-  AuthNotifier({
-    required this.authRepository
-  }) : super(AuthState());
+  AuthNotifier({required this.authRepository}) : super(AuthState());
 
-  void loginUser(String email, String password) async {}
+  Future<void> loginUser(String email, String password) async {
+    await Future.delayed(const Duration(milliseconds: 500));
+
+    try {
+      final user = await authRepository.login(email, password);
+      _setLoggedUser(user);
+    } on WrongCredentials {
+      logout('credenciales no son correctas');
+    } catch (e) {
+      logout('error no controlado');
+    }
+  }
 
   void registerUser(String email, String password) async {}
 
   void checkAuthStatus() async {}
+
+//metodo que centraliza la peticion para register,login y check
+  void _setLoggedUser(User user) {
+    //todo: necesito guardar el token en dispositivo
+    state = state.copyWith(
+      user: user,
+      authStatus: AuthStatus.authenticated,
+    );
+  }
+
+  Future<void> logout(String? errorMessage) async {
+    //todo: limpiar token
+    state = state.copyWith(
+        authStatus: AuthStatus.notAuthenticated,
+        user: null,
+        errorMessage: errorMessage);
+  }
 }
 
 //?estado
