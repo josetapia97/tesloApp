@@ -1,14 +1,14 @@
 class User {
   final String id;
   final String email;
-  final String fulname;
+  final String fullname;
   final List<String> roles;
   final String token;
 
   User(
       {required this.id,
       required this.email,
-      required this.fulname,
+      required this.fullname,
       required this.roles,
       required this.token
   });

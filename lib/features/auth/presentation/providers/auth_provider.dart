@@ -40,7 +40,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
     );
   }
 
-  Future<void> logout(String? errorMessage) async {
+  Future<void> logout([String? errorMessage]) async {
     //todo: limpiar token
     state = state.copyWith(
         authStatus: AuthStatus.notAuthenticated,
